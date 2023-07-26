@@ -6,10 +6,11 @@ import 'firebase_options.dart';
 import 'package:get/get.dart';
 
 Future main() async {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -25,19 +26,15 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: const TextTheme(
             displayLarge: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-                color: Colors.blueAccent),
+                fontSize: 26, fontWeight: FontWeight.bold, color: Colors.blue),
             displayMedium: TextStyle(
-                fontSize: 20,
-                color: Colors.blueAccent,
-                fontWeight: FontWeight.bold),
+                fontSize: 20, color: Colors.blue, fontWeight: FontWeight.bold),
             bodySmall: TextStyle(
               fontSize: 18,
-              color: Colors.blueAccent,
+              color: Colors.blue,
             )),
       ),
-      home: const ProductsScreen(),
+      home: ProductsScreen(),
     );
   }
 }

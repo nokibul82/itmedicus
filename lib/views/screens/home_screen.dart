@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:itmedicus/views/widgets/custom_floating_action_button_widget.dart';
@@ -21,6 +22,7 @@ class HomeScreen extends StatelessWidget {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      backgroundColor: const Color(0xFFf0f7ff),
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(left: 10, right: 10, top: 10),

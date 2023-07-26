@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../screens/home_screen.dart';
 import 'my_app_icons.dart';
 
 class CustomNavbarWidget extends StatelessWidget {
@@ -21,7 +23,9 @@ class CustomNavbarWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.to(HomeScreen());
+              },
               child: Container(
                   height: 50,
                   width: 50,
@@ -48,7 +52,7 @@ class CustomNavbarWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                       border: Border.all(width: 1,color: Colors.black)
                     ),
-                    child: Icon(Icons.person_2_outlined)))
+                    child: const Icon(Icons.person_2_outlined)))
           ],
         ),
       ),
