@@ -20,6 +20,7 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.white,
@@ -33,7 +34,7 @@ class ProductWidget extends StatelessWidget {
       child: ListTile(
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.network(image),
+            child: Image.network(image,height: 50,width: 80,fit: BoxFit.cover,),
           ),
           title: Text(title),
           subtitle: Row(

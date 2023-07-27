@@ -6,6 +6,7 @@ class ProductController extends GetxController {
   final _db = FirebaseFirestore.instance;
 
   var productList = <ProductModel>[].obs;
+  var filteredList = <ProductModel>[].obs;
 
   @override
   void onInit() {
@@ -13,19 +14,32 @@ class ProductController extends GetxController {
     super.onInit();
   }
 
-  Future getAllProducts() async {
+  Future<void> getAllProducts() async {
     try {
       final snapshot = await _db.collection("products").get();
-      productList.value = snapshot.docs.map((doc) => ProductModel.fromJson(doc.data())).toList();
+      productList.value = snapshot.docs
+          .map((doc) => ProductModel.fromJson(doc.data()))
+          .toList();
       print("=========================");
       print("Get All Product Called");
-    }catch(e){
+    } catch (e) {
       print("=========================");
       print("Error fetching books: $e");
     }
   }
-}
 
+  void filterProduct(String query) {
+    if (query.isEmpty) {
+      filteredList.value = productList;
+    } else {
+      filteredList.value = productList
+          .where((product) =>
+              product.title.toLowerCase().contains(query.toLowerCase()) ||
+              product.subtitle.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+  }
+}
 
 // ProductModel(
 //     id: "1",

@@ -74,8 +74,11 @@ class ProductsScreen extends StatelessWidget {
             ),
             TextField(
               controller: searchController,
+              onChanged: (query) {
+                productController.filterProduct(query);
+              },
               decoration: InputDecoration(
-                  hintText: "Search here ...",
+                  hintText: "Search here...",
                   filled: true,
                   fillColor: Colors.white,
                   prefixIcon: const Icon(Icons.search),
@@ -102,12 +105,16 @@ class ProductsScreen extends StatelessWidget {
             Expanded(
               child: Obx(() {
                 if (productController.productList.isEmpty) {
-                  return const Center(child: CircularProgressIndicator(color: Colors.blue,));
+                  return const Center(
+                      child: CircularProgressIndicator(
+                    color: Colors.blue,
+                  ));
                 } else {
                   return ListView.builder(
                       itemCount: productController.productList.length,
                       itemBuilder: (ctx, index) {
-                        ProductModel product = productController.productList[index];
+                        ProductModel product =
+                            productController.productList[index];
                         return ProductWidget(
                             title: product.title,
                             subtitle: product.subtitle,
