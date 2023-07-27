@@ -111,10 +111,10 @@ class ProductsScreen extends StatelessWidget {
                   ));
                 } else {
                   return ListView.builder(
-                      itemCount: productController.productList.length,
+                      itemCount: productController.filteredList.length,
                       itemBuilder: (ctx, index) {
                         ProductModel product =
-                            productController.productList[index];
+                            productController.filteredList[index];
                         return ProductWidget(
                             title: product.title,
                             subtitle: product.subtitle,
