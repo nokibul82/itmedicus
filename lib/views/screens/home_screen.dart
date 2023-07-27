@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:itmedicus/views/screens/products_screen.dart';
 import 'package:itmedicus/views/widgets/custom_floating_action_button_widget.dart';
 import '../../controller/home_banner_controller.dart';
 
@@ -74,7 +75,9 @@ class HomeScreen extends StatelessWidget {
                       itemCount: homeBannerController.bannerImageList.length,
                       itemBuilder: (ctx, index) {
                         return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Get.to(() => ProductsScreen());
+                            },
                             child: Image.network(
                                 homeBannerController.bannerImageList[index]));
                       }))

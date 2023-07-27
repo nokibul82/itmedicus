@@ -24,7 +24,7 @@ class CustomNavbarWidget extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Get.to(HomeScreen());
+                Get.to(() =>HomeScreen());
               },
               child: Container(
                   height: 50,

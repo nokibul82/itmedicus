@@ -5,19 +5,33 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ProductController extends GetxController {
   final _db = FirebaseFirestore.instance;
 
-  List productList = [].obs;
+  var productList = <ProductModel>[].obs;
+
+  @override
+  void onInit() {
+    getAllProducts();
+    super.onInit();
+  }
 
   Future getAllProducts() async {
-    final snapshot = await _db.collection("products").get();
-    productList = snapshot.docs
-        .map((product) => ProductModel(
-            id: product.id,
-            title: product["title"],
-            subtitle: product["subtitle"],
-            image: product["image"],
-            createdAt: product["created_at"],
-            stock: product["stock"]))
-        .toList();
-    print("Get All Product Called");
+    try {
+      final snapshot = await _db.collection("products").get();
+      productList.value = snapshot.docs.map((doc) => ProductModel.fromJson(doc.data())).toList();
+      print("=========================");
+      print("Get All Product Called");
+    }catch(e){
+      print("=========================");
+      print("Error fetching books: $e");
+    }
   }
 }
+
+
+// ProductModel(
+//     id: "1",
+//     title: "Sargel",
+//     subtitle: "Esomeprazole",
+//     image:
+//         "https://firebasestorage.googleapis.com/v0/b/itmedicus-project.appspot.com/o/Sergel.jpg?alt=media&token=39393c28-b68d-4ca5-b810-ade0f556304b",
+//     createdAt: DateTime.now().toIso8601String(),
+//     stock: "true"),

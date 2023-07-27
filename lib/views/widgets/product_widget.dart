@@ -18,7 +18,7 @@ class ProductWidget extends StatelessWidget {
     return ListTile(
       leading: ClipRRect(child: Image.network(image),),
       title: Text(title),
-      subtitle: Text(title),
+      subtitle: Text(subtitle),
       trailing: stock ? const Text("Instock") :const Text("Out of stock")
     );
   }

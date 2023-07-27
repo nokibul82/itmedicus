@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:itmedicus/controller/product_controller.dart';
+import 'package:itmedicus/models/product_model.dart';
 import 'package:itmedicus/views/widgets/custom_floating_action_button_widget.dart';
 import 'package:itmedicus/views/widgets/product_widget.dart';
 import '../widgets/custom_navbar_widget.dart';
@@ -10,11 +11,10 @@ class ProductsScreen extends StatelessWidget {
   ProductsScreen({super.key});
 
   final productController = Get.put(ProductController());
+  final searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    productController.getAllProducts();
-    final list = productController.productList;
     return Scaffold(
       backgroundColor: const Color(0xFFf0f7ff),
       body: SafeArea(
@@ -73,6 +73,7 @@ class ProductsScreen extends StatelessWidget {
               height: 30,
             ),
             TextField(
+              controller: searchController,
               decoration: InputDecoration(
                   hintText: "Search here ...",
                   filled: true,
@@ -83,7 +84,9 @@ class ProductsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none),
                   suffix: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        searchController.clear();
+                      },
                       child: CircleAvatar(
                           backgroundColor: Colors.blue.withOpacity(0.3),
                           radius: 12,
@@ -97,22 +100,23 @@ class ProductsScreen extends StatelessWidget {
               height: 20,
             ),
             Expanded(
-              //   child: RefreshIndicator(
-              // onRefresh: () async {
-              //   productController.getAllProducts;
-              // },
-              child: ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder: (ctx, index) {
-                    // return ProductWidget(
-                    //     title: list[index].title,
-                    //     subtitle: list[index].subtitle,
-                    //     image: list[index].image,
-                    //     createdAt: DateTime.parse(list[index].createdAt),
-                    //     stock: bool.parse(list[index].stock));
-                    return Text(list[index].title);
-                  }),
-            //)
+              child: Obx(() {
+                if (productController.productList.isEmpty) {
+                  return const Center(child: CircularProgressIndicator(color: Colors.blue,));
+                } else {
+                  return ListView.builder(
+                      itemCount: productController.productList.length,
+                      itemBuilder: (ctx, index) {
+                        ProductModel product = productController.productList[index];
+                        return ProductWidget(
+                            title: product.title,
+                            subtitle: product.subtitle,
+                            image: product.image,
+                            createdAt: product.createdAt,
+                            stock: product.stock);
+                      });
+                }
+              }),
             )
           ],
         ),

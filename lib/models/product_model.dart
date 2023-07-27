@@ -6,15 +6,15 @@ ProductModel productModelFromJson(String str) =>
 String productModelToJson(ProductModel data) => json.encode(data.toJson());
 
 class ProductModel {
-  String id;
+  String? id;
   String title;
   String subtitle;
   String image;
-  String createdAt;
-  String stock;
+  DateTime createdAt;
+  bool stock;
 
   ProductModel({
-    required this.id,
+    this.id,
     required this.title,
     required this.subtitle,
     required this.image,
@@ -23,12 +23,11 @@ class ProductModel {
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-        id: json["id"],
         title: json["title"],
         subtitle: json["subtitle"],
         image: json["image"],
-        createdAt: json["created_at"],
-        stock: json["stock"],
+        createdAt: DateTime.parse(json["created_at"]),
+        stock: (json["stock"]),
       );
 
   Map<String, dynamic> toJson() => {
